@@ -13,9 +13,7 @@ urls = (
 
 class index:
     def GET(self):
-      api_metadata = {}
-      tasks_object = {}
-      task_statuses = {}
+      api_metadata, tasks_object, task_statuses = {}, {}, {}
 
       # read from the config file to get the
       # graphId and base api url
@@ -54,8 +52,13 @@ class index:
           
       if not task_statuses:
           task_statuses = {"message": "no tasks available for graphId {0}".format(graph_id)}
+
+      try:
+          task_statuses = json.dumps(task_statuses)
+      except:
+          json.dumps({"message": "error - unable to process taskcluster api data into a json object"})
       
-      return json.dumps(task_statuses)
+      return task_statuses
       
 
 if __name__ == "__main__": 
