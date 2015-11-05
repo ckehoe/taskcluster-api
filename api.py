@@ -1,10 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import json
 import os
 import requests
 import subprocess
 import web
+from paste.fixture import TestApp
 
 urls = (
     '/', 'index',
@@ -14,6 +15,9 @@ urls = (
 class index:
     def GET(self):
       api_metadata, tasks_object, task_statuses = {}, {}, {}
+
+      # Pass along the headers object
+      web.header('Content-Type', 'text/html')
 
       # read from the config file to get the
       # graphId and base api url
@@ -59,8 +63,12 @@ class index:
           json.dumps({"message": "error - unable to process taskcluster api data into a json object"})
       
       return task_statuses
-      
 
-if __name__ == "__main__": 
-    app = web.application(urls, globals())
+app = web.application(urls, globals())
+
+def is_test():
+    if 'WEBPY_ENV' in os.environ:
+        return os.environ['WEBPY_ENV'] == 'test'
+
+if (not is_test()) and __name__ == "__main__":
     app.run()

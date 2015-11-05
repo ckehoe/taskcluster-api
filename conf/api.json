@@ -1,4 +1,5 @@
 {
     "graphId":"O6pKa79XTaKDyDv5vGH51A",
-    "baseUrl":"https://scheduler.taskcluster.net/v1/task-graph"
+    "baseUrl":"https://scheduler.taskcluster.net/v1/task-graph",
+    "badGraphId":"O6pKa79XTaKDyDv5vGH51B"
 }
