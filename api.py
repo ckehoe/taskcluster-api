@@ -12,12 +12,16 @@ urls = (
     '/tasks/status', 'index'
 )
 
+class Custom500Error(web.HTTPError):
+    """Custom handling of 500 internal error"""
+    def __init__(self, msg=None, headers={'Content-Type': 'application/json'}):
+        status = '500 Internal Server Error'
+        message = json.dumps(msg)
+        web.HTTPError.__init__(self, status, headers, message)
+
 class index:
     def GET(self):
       api_metadata, tasks_object, task_statuses = {}, {}, {}
-
-      # Pass along the headers object
-      web.header('Content-Type', 'text/html')
 
       # read from the config file to get the
       # graphId and base api url
@@ -38,17 +42,17 @@ class index:
       try:
           request_obj = requests.get(os.path.join(api_metadata['baseUrl'], graph_id, 'inspect'))
       except:
-          return json.dumps({"message": "error - unable to retrieve taskcluster api response"})
+          raise Custom500Error({"message": "error - unable to retrieve taskcluster api response"})
 
       # convert the response into a dictionary
       try:
           tasks_object = json.loads(request_obj.text)
       except:
-          return json.dumps({"message": "error - unable to serialize taskcluster api response"})
+          raise Custom500Error({"message": "error - unable to serialize taskcluster api response"})
 
       # Prepare the proper api response based off the data returned from the taskcluster api
       if "error" in tasks_object: # Check for error key in json object
-          task_statuses = {"message": "error - taskcluster api call failed"}
+          raise Custom500Error({"message": "error - error - taskcluster api call failed"})
       elif "tasks" in tasks_object: # Ensure tasks are returned
           for task in tasks_object['tasks']:
               if 'taskId' in task and 'state' in task: # Ensure that the task object is valid
@@ -60,7 +64,10 @@ class index:
       try:
           task_statuses = json.dumps(task_statuses)
       except:
-          json.dumps({"message": "error - unable to process taskcluster api data into a json object"})
+          raise Custom500Error({"message": "error - unable to process taskcluster api data into a json object"})
+
+      # Set the header to return a json object instead of html
+      web.header('Content-Type', 'application/json')
       
       return task_statuses
 
