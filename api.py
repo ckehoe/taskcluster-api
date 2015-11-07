@@ -61,7 +61,7 @@ class index:
       elif "tasks" in tasks_object: # Ensure tasks are returned
           for task in tasks_object['tasks']:
               if 'taskId' in task and 'state' in task: # Ensure that the task object is valid
-                  task_statuses.update({task['taskId']:task['state']})
+                  task_statuses.update({"taskId":task['taskId'], 'status':task['state']})
           
       if not task_statuses:
           task_statuses = {"message": "no tasks available for graphId {0}".format(graph_id)}

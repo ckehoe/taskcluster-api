@@ -4,7 +4,7 @@ A very simple api that will produce a JSON object containing each taskId and it'
 # How to use the API
 The api returns a JSON object containing the taskIds and their status associated with a graphId.  
 
-#Sample output*
+#Sample output
 ```bash
 {
   {
@@ -18,7 +18,7 @@ The api returns a JSON object containing the taskIds and their status associated
 }
 ```
 
-#Using the api*
+#Using the api
 Option 1 - Return the tasks and statuses using the default graphId
 ```bash
 http://localhost or http://localhost/tasks/status
