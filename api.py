@@ -23,9 +23,14 @@ class index:
     def GET(self):
       api_metadata, tasks_object, task_statuses = {}, {}, {}
 
+      # get the proper location for reading the
+      # conf file
+      workingdir = os.path.realpath(os.path.join(os.getcwd(), 
+                                    os.path.dirname(__file__)))
+
       # read from the config file to get the
       # graphId and base api url
-      with open("conf/api.json", 'r') as api_data:
+      with open(os.path.join(workingdir, "conf", "api.json"), 'r') as api_data:
           api_metadata = json.loads(api_data.read())
 
       # if a graphId was passed with the request use it. If
