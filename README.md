@@ -6,7 +6,7 @@ The api returns a JSON object containing the taskIds and their status associated
 
 #Sample output
 ```bash
-{
+[
   {
     'taskId':'dgsdgsgsdgbt23gs', 
     'status':'Complete'
@@ -15,7 +15,7 @@ The api returns a JSON object containing the taskIds and their status associated
     'taskId':'sdgfn8932t2jompg',
     'status':'Complete'
   }
-}
+]
 ```
 
 #Using the api
