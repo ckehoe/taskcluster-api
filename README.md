@@ -20,11 +20,13 @@ The api returns a JSON object containing the taskIds and their status associated
 
 #Using the api*
 Option 1 - Return the tasks and statuses using the default graphId
+```bash
 http://localhost or http://localhost/tasks/status
-
+```
 Option 2 - Return the tasks and statuses using a custom graphId
+```bash
 http://localhost/tasks/status?graphId={graphId}
-
+```
 # How to install
 There are two options for installing and running the taskcluster-api. 
 
