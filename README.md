@@ -5,7 +5,7 @@ A very simple api that will produce a JSON object containing each taskId and it'
 The api returns a JSON object containing the taskIds and their status associated with a graphId.  
 
 #Sample output*
-```json
+```bash
 {
   {
     'taskId':'dgsdgsgsdgbt23gs', 
