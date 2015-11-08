@@ -1,10 +1,10 @@
 # taskcluster-api
-A very simple api that will produce a JSON object containing each taskId and it's state by invoking the mozilla taskcluster api. 
+A very simple API that will produce a JSON object containing each taskId and its state by invoking the mozilla taskcluster API. 
 
 # How to use the API
-The api returns a JSON object containing the taskIds and their status associated with a graphId.  
+The API returns a JSON object containing the taskIds and the associated status according to the graphId.  
 
-#Sample output
+#Sample Output
 ```bash
 [
   {
@@ -18,20 +18,20 @@ The api returns a JSON object containing the taskIds and their status associated
 ]
 ```
 
-#Using the api
-Option 1 - Return the tasks and statuses using the default graphId
+#API URI's
+Option 1 - Returns the tasks and statuses based on the default graphId
 ```bash
 http://localhost or http://localhost/tasks/status
 ```
-Option 2 - Return the tasks and statuses using a custom graphId
+Option 2 - Returns the tasks and statuses based on a custom graphId
 ```bash
 http://localhost/tasks/status?graphId={graphId}
 ```
-# How to install
+# Installation
 There are two options for installing and running the taskcluster-api. 
 
 # Docker
-Can be used on any platform that supports Docker
+Can be installed on any platform that supports the Docker client.
 
 Install Docker
 ```bash
@@ -48,21 +48,21 @@ docker pull ckehoe/taskcluster-api
 ```
 Start the container on localhost port 80
 ```bash
-docker run -p 80:80 -t -i ckehoe/taskcluster-api (add -d if you want to run it in the background)
+docker run -p 80:80 -t -i ckehoe/taskcluster-api (add -d if you want it to run in the background)
 ```
-Run curl against localhost to invoke the api (for additional options see below)
+Run curl against localhost to invoke the API (for additional options see "How)
 ```bash
 curl http://localhost
 ```
 
-# How to test
-The application can easily be tested via nose. Test scripts are located at taskcluster-api/tests/api_tests.py.
+# Testing
+Use the nose module to test the application. Test scripts are located at taskcluster-api/tests/api_tests.py.
 
 Go to the root of the taskcluster directory
 ```bash
 cd {installation-location}/taskcluster-api
 ```
-Run Node tests
+Run nosetests
 ```bash
 WEBPY_ENV=test nosetests
 ```
