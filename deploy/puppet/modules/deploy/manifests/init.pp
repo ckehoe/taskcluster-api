@@ -11,7 +11,7 @@ class deploy {
 
     package { 'python':,
         ensure => 'present',
-        before => Package['python-pip'],
+        before => Exec['download-pip'],
     }
 
     exec { 'download-pip':
