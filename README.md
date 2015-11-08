@@ -30,7 +30,7 @@ http://localhost/tasks/status?graphId={graphId}
 # Installation
 There are two options for installing and running the taskcluster-api. 
 
-# Docker
+## Docker
 Can be installed on any platform that supports the Docker client.
 
 Install Docker
@@ -50,7 +50,41 @@ Start the container on localhost port 80
 ```bash
 docker run -p 80:80 -t -i ckehoe/taskcluster-api (add -d if you want it to run in the background)
 ```
-Run curl against localhost to invoke the API (for additional options see "How)
+Run curl against localhost to invoke the API (for additional options see "How to use the API")
+```bash
+curl http://localhost
+```
+
+## Puppet
+The provided puppet script will download all required dependencies and start the API on localhost. It has been tested on Ubuntu 14.04 and the Amazon Linux AMI but should work for most version of linux.
+
+### Download the Puppet Client
+
+Debian
+```bash
+sudo apt-get install puppet
+```
+RPM
+```bash
+sudo yum install -y puppet
+```
+
+Start the puppet service
+```bash
+sudo service puppet start
+```
+
+cd to the puppet directory
+```bash
+cd taskcluster-api/deploy/puppet
+```
+
+Install and Deploy the taskcluster-api
+```bash
+sudo puppet apply --modulepath ./modules manifests/site.pp
+```
+
+Run curl against localhost to invoke the API (for additional options see "How to use the API")
 ```bash
 curl http://localhost
 ```
