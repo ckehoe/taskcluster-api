@@ -14,15 +14,31 @@ class deploy {
         before => Package['python-pip'],
     }
 
-    package { 'python-pip': 
-        ensure   => 'present',
-        before   => Package[$pip_packages],
+    exec { 'download-pip':
+        command   => 'curl -o /tmp/get-pip.py -L https://bootstrap.pypa.io/get-pip.py',
+        path      => '/usr/bin',
+        logoutput => 'on_failure',
+        before    => Exec['install-pip'],
     }
 
-    package { $pip_packages: 
+    exec { 'install-pip':
+        command    => 'python /tmp/get-pip.py',
+        path      => '/usr/bin',
+        logoutput => 'on_failure',
+    }
+
+    /* In some Operating systems pip must be set to this path 
+       to execute as a package provider */
+    file { '/usr/bin/pip-python':
+        ensure => 'link',
+        target => '/usr/bin/pip',
+    }
+
+    package { $pip_packages:
         ensure   => 'present',
         provider => 'pip',
         before   => Exec['run_application'],
+        require  => File['/usr/bin/pip-python'],
     }
 
     exec { 'install_application': 

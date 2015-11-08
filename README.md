@@ -62,11 +62,11 @@ The provided puppet script will download all required dependencies and start the
 
 Debian
 ```bash
-sudo apt-get install puppet
+sudo apt-get update && sudo apt-get install -y puppet
 ```
 RPM
 ```bash
-sudo yum install -y puppet
+sudo yum check-update && sudo yum install -y puppet
 ```
 
 Start the puppet service
