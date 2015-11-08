@@ -23,8 +23,9 @@ class deploy {
 
     exec { 'install-pip':
         command    => 'python /tmp/get-pip.py',
-        path      => '/usr/bin',
-        logoutput => 'on_failure',
+        path       => '/usr/bin',
+        logoutput  => 'on_failure',
+        before     => File['/usr/bin/pip-python'],
     }
 
     /* In some Operating systems pip must be set to this path 
