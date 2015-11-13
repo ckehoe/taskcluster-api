@@ -48,7 +48,7 @@ docker pull ckehoe/taskcluster-api
 ```
 Start the container on localhost port 80
 ```bash
-docker run -p 80:80 -t -i ckehoe/taskcluster-api (add -d if you want it to run in the background)
+docker run -p 80:80 -t -i ckehoe/taskcluster-api # (add -d if you want it to run in the background)
 ```
 Run curl against localhost to invoke the API (for additional options see "How to use the API")
 ```bash
